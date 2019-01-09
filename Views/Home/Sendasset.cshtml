@@ -1,0 +1,44 @@
+﻿@model ElementsMVC.Models.Assettransfer
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Send Asset</h2>
+
+
+<div>
+    <h4></h4>
+    <hr />
+<form asp-action="Sendasset" >
+<div class="form-group">
+      <label asp-for="address" class="control-label"></label>
+      <input asp-for="address" class="form-control" />
+      <span asp-validation-for="address" class="text-danger"></span>
+      <label asp-for="amount" class="control-label"></label>
+      <input asp-for="amount" class="form-control" />
+      <span asp-validation-for="amount" class="text-danger"></span>
+      <label asp-for="comment" class="control-label"></label>
+      <input asp-for="comment" class="form-control" />
+      <span asp-validation-for="comment" class="text-danger"></span>
+      <label asp-for="commentto" class="control-label"></label>
+      <input asp-for="commentto" class="form-control" />
+      <span asp-validation-for="commentto" class="text-danger"></span>
+      <label asp-for="substractfee" class="control-label"></label>
+      <input asp-for="substractfee" class="form-control" />
+      <span asp-validation-for="substractfee" class="text-danger"></span>
+      <label asp-for="assetlabel" class="control-label"></label>
+      <input asp-for="assetlabel" class="form-control" />
+      <span asp-validation-for="assetlabel" class="text-danger"></span>
+      <label asp-for="ignoreblindfail" class="control-label"></label>
+      <input asp-for="ignoreblindfail" class="form-control">
+      <span asp-validation-for="ignoreblindfail" class="text-danger"></span>
+      <button type="submit">Send</button>
+</div>
+</form>
+</div>
+
+
+
+
+

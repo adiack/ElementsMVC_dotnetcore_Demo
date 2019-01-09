@@ -1,0 +1,29 @@
+﻿@model ElementsMVC.Models.Asset_C
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Create Asset</h2>
+
+
+<div>
+    <h4>Add new</h4>
+    <hr />
+<form asp-action="CreateAsset">
+<div class="form-group">
+      <label asp-for="assetamount" class="control-label"></label>
+      <input asp-for="assetamount" class="form-control" />
+      <label asp-for="tokenamount" class="control-label"></label>
+      <input asp-for="tokenamount" class="form-control" />
+      <label asp-for="blind" class="control-label"></label>
+      <input asp-for="blind" class="form-control" />
+      <button type="submit">Add</button>
+</div>
+</form>
+</div>
+
+
+
+
+
