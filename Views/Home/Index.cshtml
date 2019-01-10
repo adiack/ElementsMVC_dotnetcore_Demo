@@ -1,10 +1,10 @@
-﻿@model ExampleMVC.Models.ExampleNodeInfo
+﻿@model ElementsMVC.Models.ExampleNodeInfo
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Elements demo";
 }
 
-<h2>Example Node Info</h2>
+<h2>Elements demo (@Html.DisplayFor(model => model.wallet.result.hdmasterkeyid))</h2>
 
 @{
     if (Model.Message != "")
@@ -14,14 +14,101 @@
 }
 
 <div>
-    <h4>Basic Example Info</h4>
-    <hr />
+<table class="table table-bordered table-responsive table-hover">
+  <tr >
+    <th><h3>Wallet</h3></th>
+    <th><h3>Network</h3></th>
+  </tr>
+  <tr>
+    <td> <table><b>Balance:</b>@foreach(var member in Model.wallet.result.balance){	<tr><td><b>@member.Name:</b> @member.Value</td></tr>	} </table></td>
+    <td> <b>@Html.DisplayNameFor(model => model.Networkactive):</b> @Html.DisplayFor(model => model.Networkactive)</td>
+  </tr>
+  <tr>
+    <td> <table><b>Unconfirmed balance:</b>@foreach(var member in Model.wallet.result.unconfirmed_balance){     <tr><td><b>@member.Name:</b> @member.Value</td></tr>    }</table> </td> 
+    <td> <b>@Html.DisplayNameFor(model => model.Chain):</b> @Html.DisplayFor(model => model.Chain)</td>
+  </tr>
+  <tr>
+    <td>  <b>@Html.DisplayNameFor(model => model.wallet.result.txcount):</b> @Html.DisplayFor(model => model.wallet.result.txcount)</td> 
+    <td> <b>@Html.DisplayNameFor(model => model.Connections):</b> @Html.DisplayFor(model => model.Connections)</td>
+  </tr>
+  <tr>
+  <td>  <table><b>Immature balance:</b>@foreach(var member in Model.wallet.result.immature_balance){     <tr><td><b>@member.Name:</b> @member.Value</td></tr>    }</table> </td> 
+    <td> <b>@Html.DisplayNameFor(model => model.Timeoffset):</b> @Html.DisplayFor(model => model.Timeoffset)</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td> <b>@Html.DisplayNameFor(model => model.Blocknumber):</b> @Html.DisplayFor(model => model.Blocknumber)</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+
+
+</div>
+<hr />
+<div>
+    <h4>Asset Issuances</h4><div><a href="/Home/Createasset" class="btn btn-primary">Create</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="Home/Sendasset" class="btn btn-primary">Send</a></div><br>
+    <table class="table table-bordered table-responsive table-hover">
+  <tr >
+    <th><b>Asset Label</b></th>
+    <th><b>Asset</b></th>
+    <th><b>Can be re-issued</b></th>
+    <th><b>Asset Amount</b></th>
+    <th><b>Token Amount</b></th>
+  </tr>
+	 @foreach (var item in Model.Issuances.result)
+        {
+  <tr>
+    <td>@Html.DisplayFor(model => item.Assetlabel)</td>
+    <td>@Html.DisplayFor(model => item.Asset)</td>
+         	@if (item.Isreissuance)
+		{
+			<td><a href="/Home/Reissueasset?assetid=@item.Asset" class="btn btn-primary">Re-Issue</a></td>
+		}
+		else
+		{
+    <td>@Html.DisplayFor(model => item.Isreissuance)</td>
+		}
+    <td>@Html.DisplayFor(model => item.Assetamount)</td>
+    <td>@Html.DisplayFor(model => item.Tokenamount)</td>
+  </tr>
+	}
+</table>
+</div>
+
+<div>
+    <h4>Transaction List</h4> 
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.BlockCount)
-        </dt>   
-        <dd>
-            @Html.DisplayFor(model => model.BlockCount)
-        </dd>
+        </dt>
     </dl>
+    <table class="table table-bordered table-responsive table-hover">
+  <tr >
+    <th><b>Transaction type</b></th>
+    <th><b>Amount</b></th>
+    <th><b>Fees</b></th>
+    <th><b>Confirmations</b></th>
+    <th><b>Asset</b></th>
+    <th><b>Date</b> </th>
+  </tr>
+         @foreach (var item in Model.Transactions.result)
+        {
+	var txTime = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(@item.time));
+  <tr>
+    <td>@Html.DisplayFor(model => item.category)</td>
+    <td>@Html.DisplayFor(model => item.amount)</td>
+    <td>@Html.DisplayFor(model => item.fee)</td>
+    <td>@Html.DisplayFor(model => item.confirmations)</td>
+    <td>@Html.DisplayFor(model => item.asset)</td>
+    <td>@txTime</td>
+  </tr>
+        }
+</table>
 </div>
+
+
+
+
+
